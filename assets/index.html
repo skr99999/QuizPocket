@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>掌上题库</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="bank.js" defer></script>
+  <script src="xlsx.full.min.js" defer></script>
+  <script src="mammoth.browser.min.js" defer></script>
+  <script src="office.js" defer></script>
+  <script src="app.js" defer></script>
+  <script src="share.js" defer></script>
+</head>
+<body>
+  <main>
+    <header><h1>掌上题库</h1><button id="import">导入题库</button></header>
+    <input type="file" id="file" hidden>
+    <p id="message" role="status" hidden></p>
+    <section id="setup" aria-label="练习设置">
+      <label>题库<select id="banks"></select></label>
+      <p id="summary"></p>
+      <details id="issues" hidden><summary>查看导入提示及待核题目</summary><ul></ul></details>
+      <div class="settings">
+        <label>科目<select id="subject"></select></label>
+        <label>题型或分类<select id="category"></select></label>
+        <label>范围<select id="scope"><option value="all">全部题目</option><option value="wrong">错题</option><option value="favorites">收藏</option></select></label>
+        <label>顺序<select id="order"><option value="original">原顺序</option><option value="random">随机</option></select></label>
+      </div>
+      <div class="actions"><button id="start">开始练习</button><button id="restart" class="secondary">重新练习</button></div>
+    </section>
+    <details id="guide"><summary>支持的导入格式</summary>
+      <p>支持导入 Word（DOCX）、Excel（XLSX、XLS）、旧刷题 HTML、题库 JSON 或 UTF-8 CSV。旧版 Word（DOC）可在 Word 或 WPS 中另存为 DOCX。在微信或 QQ 收到题库时，可用「其他应用打开」或「分享」选择「掌上题库」，也可以先保存文件再导入。</p>
+      <p>CSV 表头可用「题型、题干、答案、A、B、C、D、E、F、科目、分类、解析、编号、来源」。判断题填「对」或「错」，多选答案填「AC」等选项组合。</p>
+    </details>
+    <section id="practice" aria-label="刷题" hidden>
+      <div class="toolbar"><button id="home" class="secondary">题库</button><span id="position"></span><button id="card-toggle" class="secondary" aria-expanded="false" aria-controls="card">答题卡</button></div>
+      <p id="stats"></p>
+      <div id="card" hidden><p>绿色为答对，红色为答错或部分正确，灰色为未做。</p><div id="grid"></div></div>
+      <article id="question"></article>
+      <nav aria-label="切换题目"><button id="previous" class="secondary">上一题</button><button id="next" class="secondary">下一题</button></nav>
+    </section>
+  </main>
+</body>
+</html>
+
+
