@@ -18,6 +18,10 @@ iPhone 版是独立 App，支持 iOS 17 及以上。安装后直接从桌面打�
 - **用 Mac 和 Xcode 安装**。打开 [iOS 工程](ios/QuizPocket.xcodeproj)，在 Signing & Capabilities 选择自己的 Team 和可用的 Bundle Identifier，选中连接的 iPhone 后运行。[Apple 真机运行指南](https://developer.apple.com/documentation/xcode/running-your-app-on-simulated-or-physical-devices)
 - **导入聊天附件**。在微信或 QQ 将附件「存储到文件」，再从 App 点「导入题库」选择。系统向 App 交付支持的题库文档时，也能通过「打开方式」接收。各聊天客户端的菜单和可选目标可能不同。
 
+<img src="docs/screenshots/iphone.png" alt="iPhone 模拟器中打开掌上题库，首页显示已导入的四题 Excel 题库和继续练习按钮" width="250">
+
+这张截图来自 iOS 18.5 模拟器。已验证 App 启动、Excel 文件 URL 导入、去重，以及重新载入后恢复到第 2 题。实体 iPhone 签名安装和聊天客户端的文件交接尚未实测。[查看验收记录](https://github.com/skr99999/QuizPocket/actions/runs/44979372643)
+
 ## 在 Android 上使用
 
 1. 在安卓手机上下载并安装 APK。想先看看答题效果，可以直接打开内置的「体验题库」。
@@ -48,11 +52,13 @@ iPhone 版是独立 App，支持 iOS 17 及以上。安装后直接从桌面打�
 
 安卓版最低安装版本为 Android 8.0（API 26），界面使用系统 WebView，建议保持更新。已在 Android 15 模拟器验证本地文件选择、系统分享接收及重启续做。微信和 QQ 的菜单会随客户端版本变化，尚未在两款客户端中做真机验证。
 
-应用没有申请联网权限。题库和答题记录保存在应用本地，卸载或清除应用数据会删除这些记录。请保留原始题库文件，方便以后重新导入。
+Android 版没有申请联网权限；iPhone 版从应用包中读取界面资源。两端均在手机上解析文件。题库和答题记录保存在应用本地，卸载或清除应用数据会删除这些记录。请保留原始题库文件，方便以后重新导入。
 
 ## 从源码构建
 
-现有构建脚本适用于 Windows。准备 Python 3、JDK 17、Android SDK Platform 35 和 Build Tools 35.0.0，将 JAVA_HOME 指向 JDK。在项目根目录用 PowerShell 执行（将路径换成本机的 SDK 目录）：
+iPhone 使用 [Xcode 工程](ios/QuizPocket.xcodeproj)。在 Mac 上打开项目，选择一个 iPhone 模拟器，按 ⌘R 运行或按 ⌘U 测试。从源码生成设备 IPA 的完整命令见 [iPhone 构建工作流](.github/workflows/iphone.yml)。
+
+Android 构建脚本适用于 Windows。准备 Python 3、JDK 17、Android SDK Platform 35 和 Build Tools 35.0.0，将 JAVA_HOME 指向 JDK。在项目根目录用 PowerShell 执行（将路径换成本机的 SDK 目录）：
 
 ```powershell
 $sdk = "$env:LOCALAPPDATA\Android\Sdk"
