@@ -1,18 +1,31 @@
 # 掌上题库 · QuizPocket
 
-**[直接打开网页版](https://skr99999.github.io/QuizPocket/)**
+**[打开掌上题库网页版](https://skr99999.github.io/QuizPocket/)** · [添加到手机主屏幕（图解）](#把网页版加到手机桌面)
 
-把手里的 Word 题单或 Excel 表格变成一套可以在 Android 或 iPhone 上反复练习的题库。导入后可以按科目练习、随机抽题、收藏难题，也可以专门复习上次做错的题。文件解析和答题记录都在手机上完成。原生 App 首次启动就能离线使用。
+用手机浏览器打开就能刷题，也可以把网页版加到手机主屏幕。首次联网完成离线准备后，断网也能导入 Word、Excel 题库，继续做题或复习错题。题库和练习记录保存在本机。Android 和 iPhone 原生 App 均可下载，首次启动即可离线使用。
 
 **[下载安卓安装包](https://github.com/skr99999/QuizPocket/releases/latest/download/QuizPocket.apk)** · **[下载 iPhone 安装包（需签名）](https://github.com/skr99999/QuizPocket/releases/download/ios-v1.0.0-r1/QuizPocket-unsigned.ipa)** · [Excel 题库模板](templates/Excel题库示例.xlsx) · [Word 题库模板](templates/Word题库示例.docx)
 
 ## 把网页版加到手机桌面
 
-1. **iPhone**：在 Safari 打开[掌上题库网页版](https://skr99999.github.io/QuizPocket/)，点「分享」→「添加到主屏幕」。如果看到「作为网页 App 打开」，请开启它，然后点「添加」。
-2. **Android**：在 Chrome 等浏览器打开网页版，从右上角菜单选「添加到主屏幕」或「安装应用」。菜单名称随浏览器而异。
-3. 添加后保持联网，从桌面图标打开一次。等页面提示可离线使用，再断网练习。
+### iPhone Safari
 
-在微信或 QQ 收到题库附件时，先存到「文件」或下载目录，再回网页版点「导入题库」。网页版和原生 App 各自保存题库与练习记录，切换版本时可用原文件重新导入。
+1. 在 Safari 打开[掌上题库网页版](https://skr99999.github.io/QuizPocket/)，点「共享」（方框向上箭头）。如果工具栏没有这个按钮，从页面菜单点「共享」。
+2. 在共享菜单中向下滑，点「添加到主屏幕」。如果看不到这项，滑到列表底部，在「编辑操作」里添加它。
+3. 如果有「作为网页 App 打开」开关，打开它，再点右上角的「添加」。
+4. 保持联网，从主屏幕点「掌上题库」图标。页面显示「已可离线使用」后，就可以断网打开、导入和练习。
+
+![iPhone 操作示意：Safari 共享、添加到主屏幕、作为网页 App 打开和从主屏幕启动](docs/screenshots/iphone-home-guide.png)
+
+[Apple 中文指南：在 iPhone 上将网站变为 App](https://support.apple.com/zh-cn/guide/iphone/iphea86e5236/26/ios/26)
+
+### Android 浏览器
+
+在 Chrome 等浏览器打开网页版，从右上角菜单选「添加到主屏幕」或「安装应用」。菜单名称随浏览器而异。添加后保持联网，从主屏幕点图标打开一次，等页面显示「已可离线使用」。
+
+### 导入自己的题库
+
+在微信或 QQ 收到 Word、Excel 题库时，先把附件存到「文件」或下载目录，再回网页版点「导入题库」选取。网页版和原生 App 各自保存题库与练习记录，切换版本时可用原文件重新导入。
 
 ## 让 Agent 安装掌上题库
 
