@@ -1,0 +1,33 @@
+name: Build iPhone app
+on:
+  push:
+    branches: [iphone-native]
+    paths: ['ios/**', 'assets/**', '.github/workflows/iphone.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  device:
+    runs-on: macos-15
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build for physical iPhone
+        run: |
+          xcodebuild -version
+          xcodebuild -project ios/QuizPocket.xcodeproj -scheme QuizPocket -configuration Release -destination 'generic/platform=iOS' -derivedDataPath "$RUNNER_TEMP/build" CODE_SIGNING_ALLOWED=NO build
+      - name: Package unsigned arm64 IPA
+        working-directory: ${{ runner.temp }}
+        run: |
+          mkdir Payload
+          mv build/Build/Products/Release-iphoneos/QuizPocket.app Payload/
+          app=Payload/QuizPocket.app
+          lipo -verify_arch arm64 "$app/QuizPocket"
+          test -f "$app/assets/index.html"
+          /usr/bin/ditto -c -k --keepParent Payload QuizPocket-unsigned.ipa
+          unzip -tq QuizPocket-unsigned.ipa
+      - uses: actions/upload-artifact@v4
+        with:
+          name: iPhone-IPA
+          path: ${{ runner.temp }}/QuizPocket-unsigned.ipa
+          if-no-files-found: error
