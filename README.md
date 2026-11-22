@@ -4,6 +4,27 @@
 
 **[下载安卓安装包](https://github.com/skr99999/QuizPocket/releases/latest/download/QuizPocket.apk)** · [Excel 题库模板](templates/Excel题库示例.xlsx) · [Word 题库模板](templates/Word题库示例.docx)
 
+## 让 Agent 安装掌上题库
+
+点下方代码块右上角的复制按钮，把整段发给能操作你电脑或手机的 Agent。
+
+```text
+请把掌上题库（QuizPocket）安装到我的手机上，并打开 App 验证。
+官方仓库是 https://github.com/skr99999/QuizPocket 。先查看 README 和 Releases，
+识别我的电脑系统和目标手机；如果看不到设备或有多台候选，只问我需要确认的那一步。
+
+按手机平台从官方 Releases 选择最新正式版的对应附件，核对 GitHub 提供的 SHA-256 后再安装。
+• Android：下载 QuizPocket.apk。如果已连接并授权 ADB，使用 adb -s <设备序列号> install -r <APK路径> 安装。
+  无 ADB 时，把官方 APK 下载链接给我，让我在手机上打开并确认安装。已有题库和练习记录要保留。
+• iPhone：先检查项目是否已提供 App Store 或 TestFlight 链接，有就优先给我手机直装入口。
+  如果发布的是 QuizPocket-unsigned.ipa，需要为设备签名。Windows 用 AltServer 的「Sideload .ipa…」，
+  Mac 可用 Xcode 选择我的 Team 和 iPhone 后运行。按仓库说明完成当前环境能执行的步骤。
+  需要 Apple 账号、验证码、设备信任或开发者模式时，请让我在自己的设备上操作。
+
+安装后打开「掌上题库」，确认能进入题库首页。如果你看不到手机屏幕，请让我确认。
+最后告诉我平台、版本和验证结果；如果只完成了下载或签名，请写清还差哪一步。
+```
+
 | 导入后核对题数 | 多选题提交后查看反馈 | 用答题卡跳题 |
 | :---: | :---: | :---: |
 | ![安卓导入示例表格后显示四种题型及各自的题数](docs/screenshots/import.png) | ![偶数多选题只选了一个正确项，显示部分正确及参考答案](docs/screenshots/practice.png) | ![答题卡按颜色显示答对、答错和未做的题目](docs/screenshots/card.png) |
