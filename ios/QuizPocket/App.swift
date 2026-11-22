@@ -65,13 +65,13 @@ final class QuizViewController: UIViewController, WKNavigationDelegate {
                         self?.web.load(URLRequest(url: LoopbackServer.home))
                     case .waiting(let error), .failed(let error):
                         self?.server = nil
-                        self?.showError("无法启动离线题库。\n\(error)", retry: true)
+                        self?.showError("无法启动离线题库。\n\(error)")
                     default: break
                     }
                 }
             }
         } catch {
-            showError("无法读取应用内的题库页面。\n\(error)", retry: true)
+            showError("无法读取应用内的题库页面。\n\(error)")
         }
     }
 
@@ -86,12 +86,15 @@ final class QuizViewController: UIViewController, WKNavigationDelegate {
     }
 
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        showError("无法打开离线题库页面。\n\(error.localizedDescription)", retry: true)
+        ready = false
+        showError("无法打开离线题库页面。\n\(error.localizedDescription)")
     }
 
     func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
         ready = false
-        webView.load(URLRequest(url: LoopbackServer.home))
+        if server != nil {
+            webView.load(URLRequest(url: LoopbackServer.home))
+        }
     }
 
     func open(_ url: URL) {
@@ -151,7 +154,12 @@ final class QuizViewController: UIViewController, WKNavigationDelegate {
             result = Result {
                 let reader = try FileHandle(forReadingFrom: file)
                 defer { try? reader.close() }
-                let contents = try reader.read(upToCount: maximum + 1) ?? Data()
+                var contents = Data()
+                while let chunk = try reader.read(upToCount: min(1024 * 1024, maximum + 1 - contents.count)) {
+                    if chunk.isEmpty { break }
+                    contents.append(chunk)
+                    if contents.count > maximum { break }
+                }
                 guard !contents.isEmpty, contents.count <= maximum else {
                     throw CocoaError(.fileReadTooLarge)
                 }
@@ -163,15 +171,13 @@ final class QuizViewController: UIViewController, WKNavigationDelegate {
         return try result.get()
     }
 
-    private func showError(_ message: String, retry: Bool) {
+    private func showError(_ message: String) {
         guard presentedViewController == nil else { return }
         let alert = UIAlertController(title: "掌上题库", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: retry ? "重试" : "好", style: .default) { [weak self] _ in
+        alert.addAction(UIAlertAction(title: "重试", style: .default) { [weak self] _ in
             guard let self else { return }
-            if retry {
-                if self.server == nil { self.startServer() }
-                else { self.web.load(URLRequest(url: LoopbackServer.home)) }
-            }
+            if self.server == nil { self.startServer() }
+            else { self.web.load(URLRequest(url: LoopbackServer.home)) }
         })
         present(alert, animated: true)
     }

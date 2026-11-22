@@ -31,3 +31,19 @@ jobs:
           name: iPhone-IPA
           path: ${{ runner.temp }}/QuizPocket-unsigned.ipa
           if-no-files-found: error
+  simulator:
+    runs-on: macos-15
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Launch on iPhone Simulator and check the home screen
+        run: |
+          udid=$(xcrun simctl list devices available -j | python3 -c 'import json,sys; print(next(d["udid"] for runtime,devices in json.load(sys.stdin)["devices"].items() if ".iOS-" in runtime for d in devices if d["name"].startswith("iPhone")))')
+          xcrun simctl boot "$udid"
+          bash ios/smoke-simulator.sh "$udid" "$RUNNER_TEMP/iphone-home.png"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: iPhone-preview
+          path: ${{ runner.temp }}/iphone-home.png
+          if-no-files-found: ignore

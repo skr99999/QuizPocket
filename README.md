@@ -1,6 +1,6 @@
 # 掌上题库 · QuizPocket
 
-把手里的 Word 题单或 Excel 表格变成一套可以在安卓手机上反复练习的题库。导入后可以按科目练习、随机抽题、收藏难题，也可以专门复习上次做错的题。文件解析和答题记录都在手机上完成，首次使用也可以离线。
+把手里的 Word 题单或 Excel 表格变成一套可以在 Android 或 iPhone 上反复练习的题库。导入后可以按科目练习、随机抽题、收藏难题，也可以专门复习上次做错的题。文件解析和答题记录都在手机上完成。应用首次启动就能离线使用。
 
 **[下载安卓安装包](https://github.com/skr99999/QuizPocket/releases/latest/download/QuizPocket.apk)** · [Excel 题库模板](templates/Excel题库示例.xlsx) · [Word 题库模板](templates/Word题库示例.docx)
 
@@ -10,7 +10,15 @@
 
 截图来自 Android 15 模拟器，题目取自仓库里的 Excel 模板。
 
-## 第一次使用
+## 在 iPhone 上安装
+
+iPhone 版是独立 App，支持 iOS 17 及以上。安装后直接从桌面打开，首次启动就能离线练习。已有的 Word、Excel 或旧 HTML 题库可以继续使用。
+
+- **用 Windows 安装 IPA**。从 [iPhone 版本发布页](https://github.com/skr99999/QuizPocket/releases/tag/ios-v1.0.0) 下载 QuizPocket-unsigned.ipa。在自己的 Windows 电脑上配置 AltServer，连接并信任 iPhone。按住 Shift 点击系统托盘里的 AltServer 图标，选择「Sideload .ipa…」，选取 IPA 和设备，使用自己的 Apple 账号签名。依设备提示开启开发者模式及信任开发者。使用免费个人签名通常需要每七天重新签名。[AltServer 安装指南](https://faq.altstore.io/altstore-classic/how-to-install-altstore-windows) · [IPA 侧载说明](https://faq.altstore.io/release-notes/altserver)
+- **用 Mac 和 Xcode 安装**。打开 [iOS 工程](ios/QuizPocket.xcodeproj)，在 Signing & Capabilities 选择自己的 Team 和可用的 Bundle Identifier，选中连接的 iPhone 后运行。[Apple 真机运行指南](https://developer.apple.com/documentation/xcode/running-your-app-on-simulated-or-physical-devices)
+- **导入聊天附件**。在微信或 QQ 将附件「存储到文件」，再从 App 点「导入题库」选择。系统向 App 交付支持的题库文档时，也能通过「打开方式」接收。各聊天客户端的菜单和可选目标可能不同。
+
+## 在 Android 上使用
 
 1. 在安卓手机上下载并安装 APK。想先看看答题效果，可以直接打开内置的「体验题库」。
 2. 有自己的题库时，点右上角「导入题库」，从系统文件选择器选取文件。收到微信或 QQ 附件时，也可以在附件菜单中找「分享」或「用其他应用打开」，选择「掌上题库」。若菜单没有这个入口，先将附件保存到手机的下载目录，再从 App 导入。
@@ -38,7 +46,7 @@
 
 ## 设备与数据
 
-应用最低安装版本为 Android 8.0（API 26），界面使用系统 WebView，建议保持更新。已在 Android 15 模拟器验证本地文件选择、系统分享接收及重启续做。微信和 QQ 的菜单会随客户端版本变化，尚未在两款客户端中做真机验证。
+安卓版最低安装版本为 Android 8.0（API 26），界面使用系统 WebView，建议保持更新。已在 Android 15 模拟器验证本地文件选择、系统分享接收及重启续做。微信和 QQ 的菜单会随客户端版本变化，尚未在两款客户端中做真机验证。
 
 应用没有申请联网权限。题库和答题记录保存在应用本地，卸载或清除应用数据会删除这些记录。请保留原始题库文件，方便以后重新导入。
 

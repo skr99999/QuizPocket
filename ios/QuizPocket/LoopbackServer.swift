@@ -85,7 +85,7 @@ final class LoopbackServer {
     }
 
     private func respond(_ connection: NWConnection, status: String, type: String = "text/plain", data: Data = Data()) {
-        let headers = "HTTP/1.1 \(status)\r\nContent-Type: \(type)\r\nContent-Length: \(data.count)\r\nConnection: close\r\nX-Content-Type-Options: nosniff\r\n\r\n"
+        let headers = "HTTP/1.1 \(status)\r\nContent-Type: \(type)\r\nContent-Length: \(data.count)\r\nConnection: close\r\nCache-Control: no-store\r\nX-Content-Type-Options: nosniff\r\n\r\n"
         connection.send(content: Data(headers.utf8) + data, completion: .contentProcessed { _ in
             connection.cancel()
         })
