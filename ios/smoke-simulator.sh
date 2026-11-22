@@ -16,7 +16,7 @@ bundle_id=net.quizpocket.app
 
 xcodebuild -project "$ios_dir/QuizPocket.xcodeproj" -scheme QuizPocket \
   -destination "id=$simulator" -configuration Debug -derivedDataPath "$work_dir/build" \
-  CODE_SIGNING_ALLOWED=NO build
+  build
 xcrun simctl bootstatus "$simulator" -b
 xcrun simctl install "$simulator" "$work_dir/build/Build/Products/Debug-iphonesimulator/QuizPocket.app"
 xcrun simctl terminate "$simulator" "$bundle_id" 2>/dev/null || true
