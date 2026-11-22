@@ -1,20 +1,34 @@
 # 掌上题库 · QuizPocket
 
-把手里的 Word 题单或 Excel 表格变成一套可以在 Android 或 iPhone 上反复练习的题库。导入后可以按科目练习、随机抽题、收藏难题，也可以专门复习上次做错的题。文件解析和答题记录都在手机上完成。应用首次启动就能离线使用。
+**[直接打开网页版](https://skr99999.github.io/QuizPocket/)**
+
+把手里的 Word 题单或 Excel 表格变成一套可以在 Android 或 iPhone 上反复练习的题库。导入后可以按科目练习、随机抽题、收藏难题，也可以专门复习上次做错的题。文件解析和答题记录都在手机上完成。原生 App 首次启动就能离线使用。
 
 **[下载安卓安装包](https://github.com/skr99999/QuizPocket/releases/latest/download/QuizPocket.apk)** · **[下载 iPhone 安装包（需签名）](https://github.com/skr99999/QuizPocket/releases/download/ios-v1.0.0-r1/QuizPocket-unsigned.ipa)** · [Excel 题库模板](templates/Excel题库示例.xlsx) · [Word 题库模板](templates/Word题库示例.docx)
+
+## 把网页版加到手机桌面
+
+1. **iPhone**：在 Safari 打开[掌上题库网页版](https://skr99999.github.io/QuizPocket/)，点「分享」→「添加到主屏幕」。如果看到「作为网页 App 打开」，请开启它，然后点「添加」。
+2. **Android**：在 Chrome 等浏览器打开网页版，从右上角菜单选「添加到主屏幕」或「安装应用」。菜单名称随浏览器而异。
+3. 添加后保持联网，从桌面图标打开一次。等页面提示可离线使用，再断网练习。
+
+在微信或 QQ 收到题库附件时，先存到「文件」或下载目录，再回网页版点「导入题库」。网页版和原生 App 各自保存题库与练习记录，切换版本时可用原文件重新导入。
 
 ## 让 Agent 安装掌上题库
 
 点下方代码块右上角的复制按钮，把整段发给能操作你电脑或手机的 Agent。
 
 ```text
-请把掌上题库（QuizPocket）装到我的手机上，再打开 App 验证。
+请帮我在手机上用掌上题库（QuizPocket），并确认能打开题库首页。
 官方仓库 https://github.com/skr99999/QuizPocket
 发布列表 https://github.com/skr99999/QuizPocket/releases
 查看 README，识别电脑系统和目标手机。遇到没连上设备或有多台候选，只请我做必要的确认。
 
-按目标平台选最新正式发行版。用该发行版附件的 SHA-256 校验下载文件，不匹配就停止。
+如果我要在 Safari 或浏览器打开，或者要把网页版加到手机桌面，使用 https://skr99999.github.io/QuizPocket/ 。
+iPhone 在 Safari 点「分享」→「添加到主屏幕」，有「作为网页 App 打开」时开启。Android 在浏览器菜单选「添加到主屏幕」或「安装应用」。
+从桌面图标联网打开一次，等页面提示可离线使用。请回报链接、桌面图标和离线验证做到哪一步，再结束网页版流程。
+
+如果我明确要求安装原生 App，按目标平台选最新正式发行版。用该发行版附件的 SHA-256 校验下载文件，不匹配就停止。
 • Android：下载 QuizPocket.apk，入口为 https://github.com/skr99999/QuizPocket/releases/latest/download/QuizPocket.apk
   已连接且授权 ADB 时，用 adb -s <设备序列号> install -r <APK路径>。没有 ADB 时，将官方链接给我在手机上安装。
 • iPhone：先查官方 README 是否已有 App Store 或 TestFlight 入口，有就优先使用。
