@@ -24,6 +24,8 @@ jobs:
           app=Payload/QuizPocket.app
           lipo "$app/QuizPocket" -verify_arch arm64
           test -f "$app/assets/index.html"
+          test "$(plutil -extract CFBundleDisplayName raw -o - "$app/Info.plist")" = "QuizPocket"
+          test "$(plutil -extract CFBundleDisplayName raw -o - "$app/zh-Hans.lproj/InfoPlist.strings")" = "掌上题库"
           /usr/bin/ditto -c -k --keepParent Payload QuizPocket-unsigned.ipa
           unzip -tq QuizPocket-unsigned.ipa
       - uses: actions/upload-artifact@v4

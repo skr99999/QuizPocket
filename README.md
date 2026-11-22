@@ -2,27 +2,33 @@
 
 把手里的 Word 题单或 Excel 表格变成一套可以在 Android 或 iPhone 上反复练习的题库。导入后可以按科目练习、随机抽题、收藏难题，也可以专门复习上次做错的题。文件解析和答题记录都在手机上完成。应用首次启动就能离线使用。
 
-**[下载安卓安装包](https://github.com/skr99999/QuizPocket/releases/latest/download/QuizPocket.apk)** · [Excel 题库模板](templates/Excel题库示例.xlsx) · [Word 题库模板](templates/Word题库示例.docx)
+**[下载安卓安装包](https://github.com/skr99999/QuizPocket/releases/latest/download/QuizPocket.apk)** · **[下载 iPhone 安装包（需签名）](https://github.com/skr99999/QuizPocket/releases/download/ios-v1.0.0-r1/QuizPocket-unsigned.ipa)** · [Excel 题库模板](templates/Excel题库示例.xlsx) · [Word 题库模板](templates/Word题库示例.docx)
 
 ## 让 Agent 安装掌上题库
 
 点下方代码块右上角的复制按钮，把整段发给能操作你电脑或手机的 Agent。
 
 ```text
-请把掌上题库（QuizPocket）安装到我的手机上，并打开 App 验证。
-官方仓库是 https://github.com/skr99999/QuizPocket 。先查看 README 和 Releases，
-识别我的电脑系统和目标手机；如果看不到设备或有多台候选，只问我需要确认的那一步。
+请把掌上题库（QuizPocket）装到我的手机上，再打开 App 验证。
+官方仓库 https://github.com/skr99999/QuizPocket
+发布列表 https://github.com/skr99999/QuizPocket/releases
+查看 README，识别电脑系统和目标手机。遇到没连上设备或有多台候选，只请我做必要的确认。
 
-按手机平台从官方 Releases 选择最新正式版的对应附件，核对 GitHub 提供的 SHA-256 后再安装。
-• Android：下载 QuizPocket.apk。如果已连接并授权 ADB，使用 adb -s <设备序列号> install -r <APK路径> 安装。
-  无 ADB 时，把官方 APK 下载链接给我，让我在手机上打开并确认安装。已有题库和练习记录要保留。
-• iPhone：先检查项目是否已提供 App Store 或 TestFlight 链接，有就优先给我手机直装入口。
-  如果发布的是 QuizPocket-unsigned.ipa，需要为设备签名。Windows 用 AltServer 的「Sideload .ipa…」，
-  Mac 可用 Xcode 选择我的 Team 和 iPhone 后运行。按仓库说明完成当前环境能执行的步骤。
-  需要 Apple 账号、验证码、设备信任或开发者模式时，请让我在自己的设备上操作。
+按目标平台选最新正式发行版。用该发行版附件的 SHA-256 校验下载文件，不匹配就停止。
+• Android：下载 QuizPocket.apk，入口为 https://github.com/skr99999/QuizPocket/releases/latest/download/QuizPocket.apk
+  已连接且授权 ADB 时，用 adb -s <设备序列号> install -r <APK路径>。没有 ADB 时，将官方链接给我在手机上安装。
+• iPhone：先查官方 README 是否已有 App Store 或 TestFlight 入口，有就优先使用。
+  需要侧载时，在发布列表里找最新正式 iOS 版的 QuizPocket-unsigned.ipa。可从
+  https://github.com/skr99999/QuizPocket/releases/tag/ios-v1.0.0-r1 定位当前修订版。
+  有更新的正式 iOS 版时选新版。GitHub 的 Latest 标记可能指向 Android 版。
+  Windows 检查 C 盘可用空间，即使临时目录在别的盘，AltServer 也会用到 C 盘。
+  解锁并连接 iPhone，按住 Shift 点击托盘里的 AltServer，选「Sideload .ipa…」和目标设备。
+  直接用发布的未签名 IPA。Apple 账号、验证码、电脑或开发者信任、开发者模式由我在自己的设备上操作。免费账号通常每七天续签一次。
+  Mac 可打开仓库里的 iOS 工程，用 Xcode 选择我的 Team 和 iPhone 后运行。
 
-安装后打开「掌上题库」，确认能进入题库首页。如果你看不到手机屏幕，请让我确认。
-最后告诉我平台、版本和验证结果；如果只完成了下载或签名，请写清还差哪一步。
+保留已有题库和练习记录。更新时沿用原来的标识和签名身份，遇到签名冲突、需要撤销证书或卸载时先问我。
+安装后查手机上的应用和版本，再打开「掌上题库」确认能进入题库首页。看不到手机屏幕时请我确认。
+回报平台、版本、真机安装与首页验证结果。还在下载、签名或等待我操作时，说清目前做到哪一步。
 ```
 
 | 导入后核对题数 | 多选题提交后查看反馈 | 用答题卡跳题 |
@@ -35,13 +41,18 @@
 
 iPhone 版是独立 App，支持 iOS 17 及以上。安装后直接从桌面打开，首次启动就能离线练习。已有的 Word、Excel 或旧 HTML 题库可以继续使用。
 
-- **用 Windows 安装 IPA**。从 [iPhone 版本发布页](https://github.com/skr99999/QuizPocket/releases/tag/ios-v1.0.0) 下载 QuizPocket-unsigned.ipa。在自己的 Windows 电脑上配置 AltServer，连接并信任 iPhone。按住 Shift 点击系统托盘里的 AltServer 图标，选择「Sideload .ipa…」，选取 IPA 和设备，使用自己的 Apple 账号签名。依设备提示开启开发者模式及信任开发者。使用免费个人签名通常需要每七天重新签名。[AltServer 安装指南](https://faq.altstore.io/altstore-classic/how-to-install-altstore-windows) · [IPA 侧载说明](https://faq.altstore.io/release-notes/altserver)
+- **用 Windows 安装 IPA**。从 [iPhone 修订版发布页](https://github.com/skr99999/QuizPocket/releases/tag/ios-v1.0.0-r1) 下载 [QuizPocket-unsigned.ipa](https://github.com/skr99999/QuizPocket/releases/download/ios-v1.0.0-r1/QuizPocket-unsigned.ipa)，与该发行版附件的 SHA-256 核对。IPA 还未签名。修订版将签名时使用的名称设为 `QuizPocket`，简体中文系统仍可显示「掌上题库」。下载后直接用 AltServer 签名即可。
+  1. 在 Windows 上安装 AltServer，检查 C 盘有可用空间。即使把临时目录设在其他盘，AltServer 仍会写入 C 盘。用 USB 连接并解锁 iPhone，按手机提示信任电脑。
+  2. 按住 Shift 点击系统托盘里的 AltServer 图标，选择「Sideload .ipa…」、目标 iPhone 和下载的 IPA，在本机窗口用自己的 Apple 账号签名。按手机提示开启开发者模式并信任开发者。免费账号签名通常每七天续签一次。
+  3. 安装结束后在 iPhone 上找「掌上题库」或「QuizPocket」，打开并确认能进入题库首页。更新或续签时沿用原签名身份和应用标识。遇到签名冲突，先保留手机上的现有应用，以免丢失题库和练习记录。
+
+  [AltServer 安装指南](https://faq.altstore.io/altstore-classic/how-to-install-altstore-windows) · [IPA 侧载说明](https://faq.altstore.io/release-notes/altserver)
 - **用 Mac 和 Xcode 安装**。打开 [iOS 工程](ios/QuizPocket.xcodeproj)，在 Signing & Capabilities 选择自己的 Team 和可用的 Bundle Identifier，选中连接的 iPhone 后运行。[Apple 真机运行指南](https://developer.apple.com/documentation/xcode/running-your-app-on-simulated-or-physical-devices)
 - **导入聊天附件**。在微信或 QQ 将附件「存储到文件」，再从 App 点「导入题库」选择。系统向 App 交付支持的题库文档时，也能通过「打开方式」接收。各聊天客户端的菜单和可选目标可能不同。
 
 <img src="docs/screenshots/iphone.png" alt="iPhone 模拟器中打开掌上题库，首页显示已导入的四题 Excel 题库和继续练习按钮" width="250">
 
-这张截图来自 iOS 18.5 模拟器。已验证 App 启动、Excel 文件 URL 导入、去重，以及重新载入后恢复到第 2 题。实体 iPhone 签名安装和聊天客户端的文件交接尚未实测。[查看验收记录](https://github.com/skr99999/QuizPocket/actions/runs/44979372643)
+这张截图来自 iOS 18.5 模拟器。模拟器已验证 App 启动、Excel 文件 URL 导入、去重，以及重新载入后恢复到第 2 题。本次发布的 IPA 已通过 AltServer 签名并安装到实体 iPhone，USB 回读版本为 1.0（构建号 1）。真机首页和微信、QQ 文件交接尚未确认。[查看模拟器验收记录](https://github.com/skr99999/QuizPocket/actions/runs/44979372643)
 
 ## 在 Android 上使用
 

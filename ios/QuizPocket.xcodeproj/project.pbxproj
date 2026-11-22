@@ -10,6 +10,7 @@
         A00000000000000000000004 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000016 /* Assets.xcassets */; };
         A00000000000000000000005 /* DocumentImportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000017 /* DocumentImportTests.swift */; };
         A00000000000000000000006 /* Excel fixture in Resources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000018 /* Excel fixture */; };
+        A00000000000000000000007 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000025 /* InfoPlist.strings */; };
 
         A00000000000000000000011 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
         A00000000000000000000012 /* LoopbackServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoopbackServer.swift; sourceTree = "<group>"; };
@@ -20,6 +21,7 @@
         A00000000000000000000017 /* DocumentImportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentImportTests.swift; sourceTree = "<group>"; };
         A00000000000000000000018 /* Excel fixture */ = {isa = PBXFileReference; lastKnownFileType = file; path = "../templates/Excel题库示例.xlsx"; sourceTree = SOURCE_ROOT; };
         A00000000000000000000019 /* QuizPocketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuizPocketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+        A0000000000000000000001A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 
         A00000000000000000000021 = {
             isa = PBXGroup;
@@ -37,6 +39,7 @@
                 A00000000000000000000011 /* App.swift */,
                 A00000000000000000000012 /* LoopbackServer.swift */,
                 A00000000000000000000013 /* Info.plist */,
+                A00000000000000000000025 /* InfoPlist.strings */,
                 A00000000000000000000016 /* Assets.xcassets */,
             );
             path = QuizPocket;
@@ -55,6 +58,13 @@
                 A00000000000000000000018 /* Excel fixture */,
             );
             path = QuizPocketTests;
+            sourceTree = "<group>";
+        };
+
+        A00000000000000000000025 /* InfoPlist.strings */ = {
+            isa = PBXVariantGroup;
+            children = (A0000000000000000000001A /* zh-Hans */,);
+            name = InfoPlist.strings;
             sourceTree = "<group>";
         };
 
@@ -79,6 +89,7 @@
             files = (
                 A00000000000000000000003 /* assets in Resources */,
                 A00000000000000000000004 /* Assets.xcassets in Resources */,
+                A00000000000000000000007 /* InfoPlist.strings in Resources */,
             );
             runOnlyForDeploymentPostprocessing = 0;
         };
