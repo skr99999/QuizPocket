@@ -10,12 +10,19 @@
 
 ### iPhone Safari
 
-1. 在 Safari 打开[掌上题库网页版](https://skr99999.github.io/QuizPocket/)，点「共享」（方框向上箭头）。如果工具栏没有这个按钮，从页面菜单点「共享」。
-2. 在共享菜单中向下滑，点「添加到主屏幕」。如果看不到这项，滑到列表底部，在「编辑操作」里添加它。
-3. 如果有「作为网页 App 打开」开关，打开它，再点右上角的「添加」。
-4. 保持联网，从主屏幕点「掌上题库」图标。页面显示「已可离线使用」后，就可以断网打开、导入和练习。
+1. 在 Safari 打开[掌上题库网页版](https://skr99999.github.io/QuizPocket/)，点底部地址栏左侧的横线菜单。
 
-![iPhone 操作示意：Safari 共享、添加到主屏幕、作为网页 App 打开和从主屏幕启动](docs/screenshots/iphone-home-guide.png)
+   <img src="docs/screenshots/iphone-safari-page-menu.png" alt="iPhone Safari 底部地址栏，红圈标出左侧的横线菜单" width="440">
+
+2. 在弹出的菜单里点「共享」。如果工具栏上直接显示共享按钮，也可以点那个按钮。
+
+   <img src="docs/screenshots/iphone-safari-share.png" alt="Safari 页面菜单，红圈标出共享选项" width="360">
+
+3. 在共享菜单中向下滑，点「添加到主屏幕」。如果看不到这项，滑到列表底部，在「编辑操作」里添加它。
+
+   <img src="docs/screenshots/iphone-safari-add-to-home.png" alt="Safari 共享菜单的操作区，红圈标出添加到主屏幕" width="440">
+
+4. 如果有「作为网页 App 打开」开关，打开它，再点右上角的「添加」。保持联网，从主屏幕点「掌上题库」图标。页面显示「已可离线使用」后，就可以断网打开、导入和练习。
 
 [Apple 中文指南：在 iPhone 上将网站变为 App](https://support.apple.com/zh-cn/guide/iphone/iphea86e5236/26/ios/26)
 
