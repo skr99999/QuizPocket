@@ -11,6 +11,7 @@ self.addEventListener("install", event => {
   event.waitUntil((async () => {
     const cache = await caches.open(cacheName);
     await cache.addAll(files.map(file => new Request(new URL(file, scope), { cache: "reload" })));
+    await self.skipWaiting();
   })());
 });
 

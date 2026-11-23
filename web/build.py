@@ -31,7 +31,7 @@ files["index.html"] = html.encode("utf-8")
 vocabulary = files["vocabulary.html"].decode("utf-8")
 vocabulary = vocabulary.replace("style-src 'self';", "style-src 'self'; connect-src https://api.deepseek.com;", 1)
 files["vocabulary.html"] = vocabulary.replace("</head>", '  <meta name="quizpocket-web" content="1">\n</head>', 1).encode("utf-8")
-for name in ("install.js", "manifest.webmanifest", "icon-180.png", "icon-192.png", "icon-512.png"):
+for name in ("install.js", "update.html", "update.js", "manifest.webmanifest", "icon-180.png", "icon-192.png", "icon-512.png"):
     files[name] = (web / name).read_bytes()
 
 worker = (web / "sw.js").read_text(encoding="utf-8")

@@ -14,6 +14,7 @@ if ("serviceWorker" in navigator) {
     navigator.serviceWorker.addEventListener("controllerchange", showReady, { once: true });
   }
   navigator.serviceWorker.register("./sw.js").then(registration => {
+    registration.update().catch(() => {});
     const worker = registration.installing;
     if (!worker || navigator.serviceWorker.controller) return;
     const showFailure = () => {
