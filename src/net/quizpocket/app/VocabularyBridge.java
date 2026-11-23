@@ -38,10 +38,12 @@ final class VocabularyBridge {
         });
     }
 
-    @JavascriptInterface public void askDeepSeek(String id, String key, String word, String question) {
+    @JavascriptInterface public void askDeepSeek(String id, String key, String word, String question, String model, String reasoning) {
         if (id == null || id.length() > 50) return;
         if (key == null || !key.matches("[A-Za-z0-9_-]{1,200}") || word == null
-                || word.length() > 200 || question == null || question.length() > 1000) {
+                || word.length() > 200 || question == null || question.length() > 1000
+                || !("deepseek-flash".equals(model) || "deepseek-v4-pro".equals(model))
+                || !("off".equals(reasoning) || "low".equals(reasoning) || "high".equals(reasoning) || "max".equals(reasoning))) {
             activity.deliverVocabularyAnswer(id, "请检查 API Key 和问题格式。", true);
             return;
         }
@@ -57,15 +59,16 @@ final class VocabularyBridge {
                                 "你是英语词汇老师。用简体中文解释英文用法，给出简短的英语例句和中文翻译。"))
                         .put(new JSONObject().put("role", "user").put("content",
                                 "当前词条：" + word + "\n" + question));
-                byte[] body = new JSONObject().put("model", "deepseek-flash")
-                        .put("thinking", new JSONObject().put("type", "disabled"))
-                        .put("max_tokens", 900).put("stream", false).put("messages", messages)
-                        .toString().getBytes(StandardCharsets.UTF_8);
+                JSONObject payload = new JSONObject().put("model", model)
+                        .put("thinking", new JSONObject().put("type", "off".equals(reasoning) ? "disabled" : "enabled"))
+                        .put("max_tokens", "off".equals(reasoning) ? 900 : 4096).put("stream", false).put("messages", messages);
+                if (!"off".equals(reasoning)) payload.put("reasoning_effort", reasoning);
+                byte[] body = payload.toString().getBytes(StandardCharsets.UTF_8);
                 connection = (HttpsURLConnection) new URL("https://api.deepseek.com/chat/completions").openConnection();
                 connection.setRequestMethod("POST");
                 connection.setInstanceFollowRedirects(false);
                 connection.setConnectTimeout(12000);
-                connection.setReadTimeout(35000);
+                connection.setReadTimeout("off".equals(reasoning) ? 35000 : 180000);
                 connection.setDoOutput(true);
                 connection.setRequestProperty("Authorization", "Bearer " + key);
                 connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");

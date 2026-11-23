@@ -40,7 +40,7 @@
 2. 把自己的生词本存进 iPhone 的「文件」，点「导入生词本」选择。支持 Excel（XLSX、XLS）和 UTF-8 的 CSV、TXT、TSV。第一列填单词，第二列填释义，音标和例句可选。Excel 读取第一个工作表，TXT 也可以每行只放一个单词。[下载生词本示例](templates/生词本示例.csv)
 3. 展开「导入格式和词库下载」可打开四级、六级和考研词表。到 GitHub 文件页下载原始 TXT，再回到掌上题库导入。[词表来源](https://github.com/KyleBing/english-vocabulary)
 
-想问用法时，在单词卡片上展开「问 DeepSeek」，填入自己的 API Key，就能在卡片里查看单词解析或发问。按下发送按钮时，当前词条和问题会提交给 DeepSeek，由你的 API 账户计费。Key 只在本次打开的背词页面保留。[DeepSeek API 文档](https://api-docs.deepseek.com/)
+想问用法时，在单词卡片上展开「问 DeepSeek」，填入自己的 API Key，就能查看单词解析或发问。默认不会保存 Key；勾选「在此设备记住 API Key」后，Key 会保存在当前浏览器的本地存储中，供这台设备上的同一浏览器再次使用。能访问这台设备和浏览器的人也可能读取它。取消勾选会删除已保存的 Key，也可以使用清除操作删除。模型和推理等级可单独选择，不受记住 Key 的开关影响。模型为 `deepseek-flash` 或 `deepseek-v4-pro`，推理等级为「关闭」「低」「高」「最高」。按下发送按钮时，当前词条和问题会提交给 DeepSeek，由你的 API 账户计费。[DeepSeek API 文档](https://api-docs.deepseek.com/)
 
 生词本和复习进度保存在本机。同一网站地址、同一浏览器入口再次打开可接着用。Safari 标签页、主屏幕图标与原生 App 可能使用各自的存储，请在打算长期使用的入口导入。更新后如果首页还没有「背单词」，关闭旧版页面和主屏幕网页 App，再联网打开一次。
 

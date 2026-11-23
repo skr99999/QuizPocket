@@ -78,6 +78,35 @@ if (typeof document !== "undefined" && (window.QuizAndroid || document.querySele
   const web = !bridge;
   let book, progress, queue = [], position = 0, pending = "", reviewTimer, saving = false;
   let database;
+  const keyStorage = "quiz-pocket:vocabulary:api-key";
+  try {
+    const saved = localStorage.getItem(keyStorage);
+    if (saved) { $("word-key").value = saved; $("word-remember").checked = true; }
+  } catch { notice("无法读取设备上的 API Key。", true); }
+
+  function saveKey() {
+    try {
+      const key = $("word-key").value.trim();
+      if ($("word-remember").checked && key) localStorage.setItem(keyStorage, key);
+      else localStorage.removeItem(keyStorage);
+    } catch {
+      notice("无法更新设备上的 API Key，请检查浏览器存储设置。", true);
+    }
+  }
+  $("word-remember").onchange = saveKey;
+  $("word-key").onchange = saveKey;
+  $("word-key").oninput = () => { if ($("word-remember").checked || !$("word-key").value.trim()) saveKey(); };
+  $("word-clear-key").onclick = () => { $("word-key").value = ""; $("word-remember").checked = false; saveKey(); };
+  for (const [id, storage] of [["word-model", "quiz-pocket:vocabulary:model"], ["word-reasoning", "quiz-pocket:vocabulary:reasoning"]]) {
+    try {
+      const saved = localStorage.getItem(storage);
+      if ([...$(id).options].some(option => option.value === saved)) $(id).value = saved;
+    } catch { notice("无法读取设备上的模型设置。", true); }
+    $(id).onchange = () => {
+      try { localStorage.setItem(storage, $(id).value); }
+      catch { notice("无法保存模型设置，请检查浏览器存储设置。", true); }
+    };
+  }
 
   function notice(text, error = false) {
     $("message").textContent = text;
@@ -185,15 +214,20 @@ if (typeof document !== "undefined" && (window.QuizAndroid || document.querySele
     pending = crypto.randomUUID();
     $("word-explain").disabled = $("word-ask").disabled = true;
     $("word-reply").textContent = "正在请求 DeepSeek…";
-    if (bridge) bridge.askDeepSeek(pending, key, book.words[queue[position]].term, question);
+    const model = $("word-model").value, reasoning = $("word-reasoning").value;
+    if (!["deepseek-flash", "deepseek-v4-pro"].includes(model) || !["off", "low", "high", "max"].includes(reasoning)) {
+      window.receiveVocabularyAnswer(pending, "请选择有效的模型和推理强度。", true);
+      return;
+    }
+    if (bridge) bridge.askDeepSeek(pending, key, book.words[queue[position]].term, question, model, reasoning);
     else {
       const id = pending;
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 30000);
+      const timeout = setTimeout(() => controller.abort(), reasoning === "off" ? 30000 : 180000);
       fetch("https://api.deepseek.com/chat/completions", {
         method: "POST", credentials: "omit", redirect: "error", signal: controller.signal,
         headers: { "Content-Type": "application/json", Authorization: "Bearer " + key },
-        body: JSON.stringify({ model: "deepseek-flash", thinking: { type: "disabled" }, max_tokens: 900, stream: false, messages: [{ role: "system", content: "你是英语词汇老师。用简体中文解释英文用法，给出简短的英语例句和中文翻译。" }, { role: "user", content: "当前词条：" + book.words[queue[position]].term + "\n" + question }] })
+        body: JSON.stringify({ model, thinking: { type: reasoning === "off" ? "disabled" : "enabled" }, ...(reasoning === "off" ? {} : { reasoning_effort: reasoning }), max_tokens: reasoning === "off" ? 900 : 4096, stream: false, messages: [{ role: "system", content: "你是英语词汇老师。用简体中文解释英文用法，给出简短的英语例句和中文翻译。" }, { role: "user", content: "当前词条：" + book.words[queue[position]].term + "\n" + question }] })
       }).then(async response => {
         if (!response.ok) throw new Error(({ 401: "API Key 无效，请检查后重试。", 402: "API 账户余额不足。", 429: "请求过于频繁，请稍后重试。" })[response.status] || "DeepSeek 请求失败，请稍后重试。");
         const data = await response.json();

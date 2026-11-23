@@ -36,9 +36,14 @@
       <details id="word-ai">
         <summary>问 DeepSeek</summary>
         <p id="word-native-note">发送时会把当前单词和问题提交给 DeepSeek，由你的 API 账户计费。</p>
-        <label id="word-key-label">DeepSeek API Key（仅本次打开背词页有效）
+        <label id="word-key-label">DeepSeek API Key
           <input id="word-key" type="password" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="200">
         </label>
+        <label><input id="word-remember" type="checkbox"> 在此设备记住 API Key</label>
+        <p>密钥保存在本设备的浏览器或应用存储中，同一设备的其他使用者可能读取。</p>
+        <button id="word-clear-key" class="secondary" type="button">清除 API Key</button>
+        <label>模型<select id="word-model"><option value="deepseek-flash">DeepSeek Flash</option><option value="deepseek-v4-pro">DeepSeek V4 Pro</option></select></label>
+        <label>推理强度<select id="word-reasoning"><option value="off">关闭</option><option value="low">低</option><option value="high">高</option><option value="max">最高</option></select></label>
         <label>关于这个单词的问题
           <textarea id="word-question" maxlength="1000" placeholder="例如：它和 preserve 有什么区别？"></textarea>
         </label>
