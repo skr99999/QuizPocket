@@ -43,3 +43,7 @@ nav{border-top:1px solid #d9e4ed;padding-top:10px;margin-top:12px}
 #message.error,#issues{color:#7e3323;background:#fff2e9}
 #issues{padding:7px;border-radius:7px}
 #issues ul{max-height:180px;overflow:auto;padding-left:18px}
+.vocabulary #word-term{font-size:1.8rem;margin:20px 0 4px}
+.vocabulary #word-ai{border-top:1px solid #d9e4ed;margin-top:18px;padding-top:10px}
+.vocabulary #word-ai label{margin-top:8px}
+.vocabulary #word-key{display:block;width:100%;min-height:44px;font:inherit;margin-top:3px;border:1px solid #aebfce;border-radius:8px;padding:8px}

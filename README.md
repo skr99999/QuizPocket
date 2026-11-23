@@ -2,7 +2,7 @@
 
 **[打开掌上题库网页版](https://skr99999.github.io/QuizPocket/)** · [添加到手机主屏幕（图解）](#把网页版加到手机桌面)
 
-用手机浏览器打开就能刷题，也可以把网页版加到手机主屏幕。首次联网完成离线准备后，断网也能导入 Word、Excel 题库，继续做题或复习错题。题库和练习记录保存在本机。Android 和 iPhone 原生 App 均可下载，首次启动即可离线使用。
+用手机浏览器打开就能刷题、背单词，也可以把网页版加到手机主屏幕。首次联网完成离线准备后，断网也能导入本机文件、继续刷题和复习单词。题库、生词本和练习记录保存在当前浏览器。Android 和 iPhone 原生 App 均可下载，首次启动即可离线刷题。
 
 **[下载安卓安装包](https://github.com/skr99999/QuizPocket/releases/latest/download/QuizPocket.apk)** · **[下载 iPhone 安装包（需签名）](https://github.com/skr99999/QuizPocket/releases/download/ios-v1.0.0-r1/QuizPocket-unsigned.ipa)** · [Excel 题库模板](templates/Excel题库示例.xlsx) · [Word 题库模板](templates/Word题库示例.docx)
 
@@ -33,6 +33,16 @@
 ### 导入自己的题库
 
 在微信或 QQ 收到 Word、Excel 题库时，先把附件存到「文件」或下载目录，再回网页版点「导入题库」选取。网页版和原生 App 各自保存题库与练习记录，切换版本时可用原文件重新导入。
+
+## 在网页版背单词
+
+1. 从 Safari 或主屏幕图标打开掌上题库，点「背单词」。可以先试「体验词库」，翻卡看释义和例句，再点「记住了」或「忘记了」。到期词会排在新词前面。
+2. 把自己的生词本存进 iPhone 的「文件」，点「导入生词本」选择。支持 Excel（XLSX、XLS）和 UTF-8 的 CSV、TXT、TSV。第一列填单词，第二列填释义，音标和例句可选。Excel 读取第一个工作表，TXT 也可以每行只放一个单词。[下载生词本示例](templates/生词本示例.csv)
+3. 展开「导入格式和词库下载」可打开四级、六级和考研词表。到 GitHub 文件页下载原始 TXT，再回到掌上题库导入。[词表来源](https://github.com/KyleBing/english-vocabulary)
+
+想问用法时，在单词卡片上展开「问 DeepSeek」，填入自己的 API Key，就能在卡片里查看单词解析或发问。按下发送按钮时，当前词条和问题会提交给 DeepSeek，由你的 API 账户计费。Key 只在本次打开的背词页面保留。[DeepSeek API 文档](https://api-docs.deepseek.com/)
+
+生词本和复习进度保存在本机。同一网站地址、同一浏览器入口再次打开可接着用。Safari 标签页、主屏幕图标与原生 App 可能使用各自的存储，请在打算长期使用的入口导入。更新后如果首页还没有「背单词」，关闭旧版页面和主屏幕网页 App，再联网打开一次。
 
 ## 让 Agent 安装掌上题库
 
@@ -118,7 +128,7 @@ iPhone 版是独立 App，支持 iOS 17 及以上。安装后直接从桌面打�
 
 安卓版最低安装版本为 Android 8.0（API 26），界面使用系统 WebView，建议保持更新。已在 Android 15 模拟器验证本地文件选择、系统分享接收及重启续做。微信和 QQ 的菜单会随客户端版本变化，尚未在两款客户端中做真机验证。
 
-Android 版没有申请联网权限；iPhone 版从应用包中读取界面资源。两端均在手机上解析文件。题库和答题记录保存在应用本地，卸载或清除应用数据会删除这些记录。请保留原始题库文件，方便以后重新导入。
+Android 和 iPhone 原生 App 的文件导入、刷题和进度保存均可离线使用。Android 源码中的背词功能支持用自己的 DeepSeek API Key 联网提问。卸载 App 或清除应用数据会删除保存在该 App 中的记录。请保留原始文件，方便以后重新导入。
 
 ## 从源码构建
 
@@ -136,7 +146,7 @@ python build.py "$sdk\build-tools\35.0.0" "$sdk\platforms\android-35"
 若要运行导入和判题自检，使用 Node.js 22 或更高版本：
 
 ```powershell
-node --test tests/bank.test.cjs tests/office.test.cjs
+node --test tests/bank.test.cjs tests/office.test.cjs tests/vocabulary.test.cjs
 ```
 
 Android 文件选择、分享接收和 WebView 容器位于 [QuizActivity.java](src/net/quizpocket/app/QuizActivity.java)。离线界面、导入解析和判题逻辑位于 [assets](assets)。

@@ -1,5 +1,6 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="net.quizpocket.app" android:versionCode="1" android:versionName="1.0">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="net.quizpocket.app" android:versionCode="2" android:versionName="1.1">
     <uses-sdk android:minSdkVersion="26" android:targetSdkVersion="34" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <application android:label="掌上题库" android:icon="@drawable/ic_book" android:allowBackup="false" android:theme="@android:style/Theme.Material.Light.NoActionBar">
         <activity android:name=".QuizActivity" android:launchMode="singleTop" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden">
             <intent-filter>

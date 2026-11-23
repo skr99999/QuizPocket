@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>背单词 · 掌上题库</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="xlsx.full.min.js" defer></script>
+  <script src="vocabulary.js" defer></script>
+</head>
+<body>
+  <main class="vocabulary">
+    <header><h1>背单词</h1><button id="quiz-home" class="secondary">返回题库</button></header>
+    <p id="message" role="status" hidden></p>
+    <section id="word-setup" aria-label="词库">
+      <label>词库<select id="word-books"></select></label>
+      <p id="word-summary"></p>
+      <div class="actions">
+        <button id="word-start" disabled>开始背词</button>
+        <button id="word-import" class="secondary">导入生词本</button>
+      </div>
+      <input id="word-file" type="file" hidden>
+    </section>
+    <section id="word-practice" aria-label="单词卡片" hidden>
+      <div class="toolbar"><button id="word-home" class="secondary">词库</button><span id="word-position"></span></div>
+      <article>
+        <h2 id="word-term"></h2>
+        <p id="word-phonetic" hidden></p>
+        <button id="word-reveal">显示释义</button>
+        <div id="word-answer" class="feedback muted" hidden></div>
+        <div id="word-grade" class="actions" hidden>
+          <button id="word-forgot" class="secondary">忘记了</button><button id="word-known">记住了</button>
+        </div>
+      </article>
+      <details id="word-ai">
+        <summary>问 DeepSeek</summary>
+        <p id="word-native-note">发送时会把当前单词和问题提交给 DeepSeek，由你的 API 账户计费。</p>
+        <label id="word-key-label">DeepSeek API Key（仅本次打开背词页有效）
+          <input id="word-key" type="password" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="200">
+        </label>
+        <label>关于这个单词的问题
+          <textarea id="word-question" maxlength="1000" placeholder="例如：它和 preserve 有什么区别？"></textarea>
+        </label>
+        <div class="actions">
+          <button id="word-explain" class="secondary">解析单词</button>
+          <button id="word-ask" class="secondary">发送问题</button>
+        </div>
+        <div id="word-reply" class="feedback muted" role="status" hidden></div>
+      </details>
+    </section>
+    <details id="guide"><summary>导入格式和词库下载</summary>
+      <p>Excel（XLSX、XLS）、UTF-8 CSV、TXT、TSV。第一列填单词，第二列填释义，后两列可填音标和例句。Excel 读取第一个工作表。TXT 每行一个单词，或用 Tab 分隔单词和释义。</p>
+      <p>以下词表由 KyleBing/english-vocabulary 提供。打开 GitHub 文件页面后，点「Download raw file」，再导入保存的 TXT。</p>
+      <div class="actions" id="word-downloads">
+        <button class="secondary">四级词表</button>
+        <button class="secondary">六级词表</button>
+        <button class="secondary">考研词表</button>
+      </div>
+    </details>
+  </main>
+</body>
+</html>

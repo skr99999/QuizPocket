@@ -14,7 +14,8 @@ files = {path.name: path.read_bytes() for path in (web.parent / "assets").iterdi
 html = files["index.html"].decode("utf-8")
 assert "connect-src 'self';" in html and "</head>" in html
 html = html.replace("connect-src 'self';", "connect-src 'self'; manifest-src 'self'; worker-src 'self';", 1)
-html = html.replace("</head>", """  <meta name="theme-color" content="#eef3f7">
+html = html.replace("</head>", """  <meta name="quizpocket-web" content="1">
+  <meta name="theme-color" content="#eef3f7">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="icon-180.png">
@@ -27,6 +28,9 @@ html = html.replace(
     1,
 )
 files["index.html"] = html.encode("utf-8")
+vocabulary = files["vocabulary.html"].decode("utf-8")
+vocabulary = vocabulary.replace("style-src 'self';", "style-src 'self'; connect-src https://api.deepseek.com;", 1)
+files["vocabulary.html"] = vocabulary.replace("</head>", '  <meta name="quizpocket-web" content="1">\n</head>', 1).encode("utf-8")
 for name in ("install.js", "manifest.webmanifest", "icon-180.png", "icon-192.png", "icon-512.png"):
     files[name] = (web / name).read_bytes()
 

@@ -18,6 +18,7 @@ public class QuizActivity extends Activity {
     private WebView web;
     private ValueCallback<Uri[]> pending;
     private static final String HOME = "https://quiz.invalid/assets/index.html";
+    private static final String VOCABULARY = "https://quiz.invalid/assets/vocabulary.html";
 
     private static final long MAX_FILE = 32L * 1024 * 1024;
     private volatile SharedDoc shared;
@@ -26,6 +27,7 @@ public class QuizActivity extends Activity {
     private static class SharedDoc {
         final Uri uri;
         final String route = "/incoming/" + UUID.randomUUID();
+        boolean offered;
         SharedDoc(Uri uri) { this.uri = uri; }
     }
 
@@ -39,13 +41,15 @@ public class QuizActivity extends Activity {
         } else if (Intent.ACTION_VIEW.equals(intent.getAction())) uri = intent.getData();
         if (uri != null && "content".equals(uri.getScheme())) {
             shared = new SharedDoc(uri);
-            if (pageReady) offerShared();
+            if (VOCABULARY.equals(web.getUrl())) showPage(HOME);
+            else if (pageReady) offerShared();
         }
     }
 
     private void offerShared() {
         SharedDoc doc = shared;
-        if (doc == null) return;
+        if (doc == null || doc.offered) return;
+        doc.offered = true;
         String name = doc.uri.getLastPathSegment();
         try (Cursor cursor = getContentResolver().query(doc.uri,
                 new String[]{OpenableColumns.DISPLAY_NAME, OpenableColumns.SIZE}, null, null, null)) {
@@ -72,6 +76,11 @@ public class QuizActivity extends Activity {
                 + "," + JSONObject.quote(name) + ")", null);
     }
 
+    private void showPage(String url) {
+        pageReady = false;
+        web.loadUrl(url);
+    }
+
     @Override protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
@@ -87,6 +96,7 @@ public class QuizActivity extends Activity {
         web.getSettings().setDomStorageEnabled(true);
         web.getSettings().setAllowFileAccess(false);
         web.getSettings().setAllowContentAccess(false);
+        web.addJavascriptInterface(new VocabularyBridge(this), "QuizAndroid");
         web.setWebViewClient(new WebViewClient() {
             @Override public void onPageFinished(WebView view, String url) {
                 if (HOME.equals(url)) {
@@ -137,7 +147,7 @@ public class QuizActivity extends Activity {
             }
         });
         if (state == null) handleIntent(getIntent());
-        web.loadUrl(HOME);
+        showPage(HOME);
     }
 
     @Override protected void onActivityResult(int request, int result, Intent data) {
@@ -150,8 +160,28 @@ public class QuizActivity extends Activity {
     }
 
     @Override public void onBackPressed() {
+        if (VOCABULARY.equals(web.getUrl())) {
+            showPage(HOME);
+            return;
+        }
         web.evaluateJavascript("typeof window.quizBack === 'function' && window.quizBack()", value -> {
             if (!"true".equals(value)) finish();
+        });
+    }
+
+    void openVocabulary(boolean open) {
+        runOnUiThread(() -> {
+            if (open && HOME.equals(web.getUrl())) showPage(VOCABULARY);
+            if (!open && VOCABULARY.equals(web.getUrl())) showPage(HOME);
+        });
+    }
+
+    void deliverVocabularyAnswer(String id, String text, boolean error) {
+        runOnUiThread(() -> {
+            if (VOCABULARY.equals(web.getUrl()) && !isFinishing() && !isDestroyed()) {
+                web.evaluateJavascript("window.receiveVocabularyAnswer(" + JSONObject.quote(id)
+                        + "," + JSONObject.quote(text) + "," + error + ")", null);
+            }
         });
     }
 }

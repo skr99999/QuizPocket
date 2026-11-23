@@ -114,6 +114,7 @@ function showHome() {
   $("practice").hidden = true;
   $("setup").hidden = false;
   $("guide").hidden = false;
+  $("vocabulary-entry").hidden = !window.QuizAndroid && !document.querySelector('meta[name="quizpocket-web"]');
   $("import").hidden = false;
   const current = record.session?.filters;
   const bankNames = new Map();
@@ -168,6 +169,7 @@ function begin(restart) {
   view = "practice";
   $("setup").hidden = true;
   $("guide").hidden = true;
+  $("vocabulary-entry").hidden = true;
   $("import").hidden = true;
   $("practice").hidden = false;
   render();
@@ -322,6 +324,10 @@ $("previous").addEventListener("click", () => move(record.session.index - 1));
 $("next").addEventListener("click", () => move(record.session.index + 1));
 $("card-toggle").addEventListener("click", () => { cardOpen = !cardOpen; renderCard(); });
 $("import").addEventListener("click", () => $("file").click());
+$("open-vocabulary").addEventListener("click", () => {
+  if (window.QuizAndroid) window.QuizAndroid.openVocabulary(true);
+  else location.href = "vocabulary.html";
+});
 
 let importing = false;
 

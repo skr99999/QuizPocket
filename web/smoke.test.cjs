@@ -49,6 +49,15 @@ async function main() {
     await page.locator("#start").click();
     await page.locator(".option").first().click();
     await page.getByText("已答 1 / 4", { exact: false }).waitFor();
+    await page.getByText("题库", { exact: true }).first().click();
+    await page.locator("#open-vocabulary").click();
+    await page.locator("#word-start:not([disabled])").waitFor();
+    await page.locator("#word-file").setInputFiles(path.join(__dirname, "../templates/生词本示例.csv"));
+    await page.getByText(/^已导入「生词本示例」/).waitFor();
+    await page.locator("#word-start").click();
+    await page.locator("#word-reveal").click();
+    await page.locator("#word-known").click();
+    await page.waitForFunction(() => document.querySelector("#word-position").textContent.startsWith("2 /"));
     await page.close();
 
     online = false;
@@ -60,6 +69,31 @@ async function main() {
     assert.equal(await page.locator("#banks option").count(), 3);
     await page.locator("#file").setInputFiles(path.join(__dirname, "../templates/Word题库示例.docx"));
     await page.getByText("已打开同名题库，保留原有进度。", { exact: true }).waitFor();
+    await page.locator("#open-vocabulary").click();
+    await page.locator("#word-start:not([disabled])").waitFor();
+    assert.equal(await page.locator("#word-books option").count(), 2);
+    await page.locator("#word-file").setInputFiles(path.join(__dirname, "../templates/生词本示例.csv"));
+    await page.getByText("已打开同一份词库，保留了原有进度。", { exact: true }).waitFor();
+    await page.locator("#word-start").click();
+    assert.notEqual(await page.locator("#word-term").textContent(), "adapt");
+    await page.locator("#word-ai summary").click();
+    await page.evaluate(() => {
+      const originalFetch = window.fetch;
+      window.fetch = async (url, options) => {
+        if (url !== "https://api.deepseek.com/chat/completions") return originalFetch(url, options);
+        window.mockRequest = { url, options };
+        return new Response(JSON.stringify({ choices: [{ message: { content: "测试解析" } }] }), { status: 200 });
+      };
+    });
+    await page.locator("#word-key").fill("test-key");
+    await page.locator("#word-explain").click();
+    await page.getByText("测试解析", { exact: true }).waitFor();
+    const request = await page.evaluate(() => window.mockRequest);
+    assert.equal(request.url, "https://api.deepseek.com/chat/completions");
+    assert.equal(request.options.headers.Authorization, "Bearer test-key");
+    assert.equal(request.options.credentials, "omit");
+    assert.equal(request.options.redirect, "error");
+    assert.match(JSON.parse(request.options.body).messages[1].content, /当前词条：.+\n/);
     assert.deepEqual(errors, []);
     console.log("iPhone-sized WebKit: subpath, Word/Excel import, offline reopen, and saved progress passed.");
   } finally {
